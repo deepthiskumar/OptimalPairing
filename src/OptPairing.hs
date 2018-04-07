@@ -32,7 +32,10 @@ type StudentPref = [(Student, [Subject])]
 --students get a tutor and if not it should be notified
 
 data OptPairs = OptPairs [(Tutor, Student)] [(Subject, Student)]
-    deriving(Show, Eq)
+    deriving(Eq)
+
+instance Show OptPairs where
+    show p = showPairing p
 
 emptyPairs = OptPairs [] []
 
@@ -93,6 +96,10 @@ lookUpAll s ((t,s'):xs)
 zip' :: T.Text -> [T.Text] -> [(T.Text,T.Text)]
 zip' t []       = []
 zip' t (s:ss)   = (t,s) : zip' t ss
+
+showPairing :: OptPairs -> String
+showPairing (OptPairs ps es) = "Optimal pairs:\n" ++ (show ps) ++ "\n\n"
+  ++ "Unassigned students (Subject, Student):\n" ++ (show es) 
 
 
 
